@@ -1,5 +1,9 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miapp/widgets/app_bar.dart';
+import "package:cached_network_image/cached_network_image.dart";
 
 class ImagesPageArgs {
   final String username;
@@ -38,8 +42,23 @@ class _ImagePagesState extends State<ImagePages> {
               ),
               Expanded(
                   child: Center(
-                child: Text(
-                    "el usuario ${args.username} esta activo: ${args.isActive}"),
+                child: Container(
+                  height: 300,
+                  width: 300,
+                  color: Colors.blue,
+                  child: CachedNetworkImage(
+                    imageUrl:
+                        'https://img.freepik.com/vector-gratis/fondo-futurista-luces-neon_23-2148497520.jpg?size=626&ext=jpg&ga=GA1.2.1361746739.1598907492',
+                    fit: BoxFit.fill,
+                    placeholder: (_, __) {
+                      return Center(
+                        child: CupertinoActivityIndicator(
+                          radius: 15,
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ))
             ],
           ),

@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miapp/pages/chat_page.dart';
 import 'package:miapp/pages/images_pages.dart';
+import 'package:miapp/pages/post_page.dart';
 import 'package:miapp/widgets/app_bar.dart';
 import 'package:miapp/widgets/avatar.dart';
 import 'package:miapp/widgets/cronometer.dart';
+import 'package:miapp/widgets/my_btn.dart';
 import '../widgets/navbar.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,11 +18,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _isEnabled = false;
+  int _currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: Navbar(
+          currentPage: _currentPage,
           items: [
             BottomMenuItem(iconPath: 'assets/icon/menu.svg', label: 'Menu'),
             BottomMenuItem(iconPath: 'assets/icon/home.svg', label: 'Home'),
@@ -29,6 +33,11 @@ class _HomePageState extends State<HomePage> {
             //BottomMenuItem(iconPath: 'assets/icon/camera.svg', label: 'Camera'),
             BottomMenuItem(iconPath: 'assets/icon/user.svg', label: 'Contacto')
           ],
+          onChange: (int newCurrentPage) {
+            setState(() {
+              _currentPage = newCurrentPage;
+            });
+          },
         ),
         body: SafeArea(
             child: Container(
@@ -68,15 +77,21 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     height: 20,
                   ),
-                  CupertinoButton(
-                    child: Text("enable: $_isEnabled"),
-                    onPressed: () => {
-                      setState(() {
-                        _isEnabled = !_isEnabled;
-                      })
+                  // CupertinoButton(
+                  //   child: Text("enable: $_isEnabled"),
+                  //   onPressed: () => {
+                  //     setState(() {
+                  //       _isEnabled = !_isEnabled;
+                  //     })
+                  //   },
+                  //   color: Colors.blue,
+                  // ),
+                  MyBtn(
+                    label: "My Post",
+                    onPressed: () {
+                      Navigator.pushNamed(context, PostPage.routeName);
                     },
-                    color: Colors.blue,
-                  ),
+                  )
                 ],
               ))
             ],
